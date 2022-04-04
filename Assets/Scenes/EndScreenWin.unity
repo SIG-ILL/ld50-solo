@@ -1040,6 +1040,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2acbe3f52fc511f44a3f93e461d6cfe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  exitButton: {fileID: 1738247663}
 --- !u!114 &700307684
 MonoBehaviour:
   m_ObjectHideFlags: 0
