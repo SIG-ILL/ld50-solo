@@ -9,7 +9,7 @@ public class ResourcesManager : MonoBehaviour {
 	[SerializeField]
 	private int initialMetal = 10;
 
-	public ResourcesData CurrentResources { get { return new ResourcesData { Energy = resources.Energy, Fuel = resources.Fuel, Metal = resources.Metal }; } }
+	public ResourcesData CurrentResources { get { return new ResourcesData { EnergyBalance = resources.EnergyBalance, EnergyGenerated = resources.EnergyGenerated, Fuel = resources.Fuel, Metal = resources.Metal }; } }
 
 	private ResourcesData resources;
 
@@ -20,7 +20,7 @@ public class ResourcesManager : MonoBehaviour {
 	}
 
 	private void Awake() {
-		resources = new ResourcesData { Energy = initialEnergy, Fuel = initialFuel, Metal = initialMetal };
+		resources = new ResourcesData { EnergyBalance = initialEnergy, EnergyGenerated = initialEnergy, Fuel = initialFuel, Metal = initialMetal };
 		if(resourcesChangedEvent != null) {
 			resourcesChangedEvent(CurrentResources);
 		}
@@ -31,7 +31,7 @@ public class ResourcesManager : MonoBehaviour {
 			return false;
 		}
 
-		resources.Energy -= resourcesChange.Energy;
+		resources.EnergyBalance -= resourcesChange.EnergyBalance;
 		resources.Fuel -= resourcesChange.Fuel;
 		resources.Metal -= resourcesChange.Metal;
 
@@ -45,7 +45,9 @@ public class ResourcesManager : MonoBehaviour {
 	public void AddNewBuilding(GameObject buildingObject) {
 		Building building = buildingObject.GetComponent<Building>();
 		building.IncomeGenerated += OnIncomeGenerated;
-		resources.Energy += building.GetComponent<BuildingProperties>().EnergyGain;
+		int energyGain = building.GetComponent<BuildingProperties>().EnergyGain;
+		resources.EnergyBalance += energyGain;
+		resources.EnergyGenerated += energyGain;
 
 		if(building.GetComponent<BuildingProperties>().EnergyGain > 0 && resourcesChangedEvent != null) {
 			resourcesChangedEvent(resources);

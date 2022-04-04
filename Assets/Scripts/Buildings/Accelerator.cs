@@ -9,4 +9,10 @@ public class Accelerator : Building {
 
 		field.Activate();
 	}
+
+	public override void Deactivate() {
+		base.Deactivate();
+
+		field.Deactivate();
+	}
 }

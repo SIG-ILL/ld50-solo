@@ -21,7 +21,7 @@ public class ResourcesDisplay : MonoBehaviour {
 	}
 
 	private void OnResourcesChanged(ResourcesData resources) {
-		energyText.SetText("E: {0}", resources.Energy);
+		energyText.SetText("E: {0}", resources.EnergyBalance);
 		fuelText.SetText("F: {0}", resources.Fuel);
 		metalText.SetText("M: {0}", resources.Metal);
 	}

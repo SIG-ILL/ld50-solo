@@ -10,8 +10,18 @@ public class Building : MonoBehaviour {
 		remove { incomeGeneratedEvent -= value; }
 	}
 
+	private Coroutine incomeCoroutine;
+	private bool isActive;
+	public bool IsActive { get { return isActive; } }
+
 	public virtual void Activate() {
-		StartCoroutine(IncomeCoroutine());
+		incomeCoroutine = StartCoroutine(IncomeCoroutine());
+		isActive = true;
+	}
+
+	public virtual void Deactivate() {
+		StopCoroutine(incomeCoroutine);
+		isActive = false;
 	}
 
 	private IEnumerator IncomeCoroutine() {

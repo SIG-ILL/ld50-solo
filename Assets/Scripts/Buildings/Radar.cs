@@ -4,8 +4,8 @@ using System.Collections;
 [RequireComponent(typeof(LineRenderer))]
 public class Radar : Building {
 	private LineRenderer lineRenderer;
-
 	private Transform cometMoon;
+	private Coroutine lineRendererCoroutine;
 
 	public override void Activate() {
 		base.Activate();
@@ -13,7 +13,14 @@ public class Radar : Building {
 		lineRenderer = GetComponent<LineRenderer>();
 		cometMoon = FindObjectOfType<CometMovement>().transform;
 
-		StartCoroutine(LineRendererCoroutine());
+		lineRendererCoroutine = StartCoroutine(LineRendererCoroutine());
+	}
+
+	public override void Deactivate() {
+		base.Deactivate();
+
+		StopCoroutine(lineRendererCoroutine);
+		lineRenderer.positionCount = 0;
 	}
 
 	private IEnumerator LineRendererCoroutine() {

@@ -7,9 +7,20 @@ public class RepulsorField : MonoBehaviour {
 	private int charges = 3;
 
 	private bool isActive = false;
+	private SpriteRenderer spriteRenderer;
+
+	private void Awake() {
+		spriteRenderer = GetComponent<SpriteRenderer>();
+	}
 
 	public void Activate() {
+		spriteRenderer.enabled = true;
 		isActive = true;
+	}
+
+	public void Deactivate() {
+		spriteRenderer.enabled = false;
+		isActive = false;
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision) {

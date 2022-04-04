@@ -9,4 +9,10 @@ public class Repulsor : Building {
 
 		field.Activate();
 	}
+
+	public override void Deactivate() {
+		base.Deactivate();
+
+		field.Deactivate();
+	}
 }

@@ -13,7 +13,7 @@ public class BuildingProperties : MonoBehaviour {
 	private int metalCost = 0;
 	public int MetalCost { get { return metalCost; } }
 
-	public ResourcesData ResourcesCost { get { return new ResourcesData { Energy = energyCost, Fuel = fuelCost, Metal = metalCost }; } }
+	public ResourcesData ResourcesCost { get { return new ResourcesData { EnergyBalance = energyCost, Fuel = fuelCost, Metal = metalCost }; } }
 
 	[SerializeField]
 	private int energyGain = 0;
@@ -31,7 +31,7 @@ public class BuildingProperties : MonoBehaviour {
 	float resourceGenerationIntervalInSeconds = 2.0f;
 	public float ResourceGenerationIntervalInSeconds { get { return resourceGenerationIntervalInSeconds; } }
 
-	public ResourcesData ResourcesGain { get { return new ResourcesData { Energy = energyGain, Fuel = fuelGain, Metal = metalGain }; } }
+	public ResourcesData ResourcesGain { get { return new ResourcesData { EnergyBalance = energyGain, Fuel = fuelGain, Metal = metalGain }; } }
 
 	[SerializeField]
 	bool canBeBuildOnPlanet = true;

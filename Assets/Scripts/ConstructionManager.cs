@@ -9,6 +9,8 @@ public class ConstructionManager : MonoBehaviour {
 	[SerializeField]
 	private ResourcesManager resourcesManager;
 	[SerializeField]
+	private EnergyManager energyManager;
+	[SerializeField]
 	private Planet planet;
 
 	[SerializeField]
@@ -18,7 +20,7 @@ public class ConstructionManager : MonoBehaviour {
 	[SerializeField]
 	private int rocketPartFuelCost = 10;
 
-	public ResourcesData RocketPartCost { get { return new ResourcesData { Energy = 0, Fuel = rocketPartFuelCost, Metal = rocketPartMetalCost }; } }
+	public ResourcesData RocketPartCost { get { return new ResourcesData { EnergyBalance = 0, Fuel = rocketPartFuelCost, Metal = rocketPartMetalCost }; } }
 
 	private event Action<float> rocketPartBuiltEvent;
 	public event Action<float> RocketPartBuilt {
@@ -78,7 +80,7 @@ public class ConstructionManager : MonoBehaviour {
 			return;
 		}
 
-		resourcesManager.Subtract(new ResourcesData { Energy = 0, Fuel = rocketPartFuelCost, Metal = rocketPartMetalCost });
+		resourcesManager.Subtract(new ResourcesData { EnergyBalance = 0, Fuel = rocketPartFuelCost, Metal = rocketPartMetalCost });
 
 		rocketPartsBuilt++;
 
@@ -137,6 +139,7 @@ public class ConstructionManager : MonoBehaviour {
 			GameObject newBuilding = constructionGhost;
 			constructionGhost = null;
 			resourcesManager.AddNewBuilding(newBuilding);
+			energyManager.AddNewBuilding(newBuilding);
 
 			if(newBuilding.GetComponent<Radar>() != null && radarBuiltEvent != null) {
 				radarBuiltEvent();

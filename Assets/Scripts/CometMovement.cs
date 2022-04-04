@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections;
 
 public class CometMovement : MonoBehaviour {
@@ -17,6 +18,12 @@ public class CometMovement : MonoBehaviour {
 	private float orbitalDecayStartDelayInSeconds = 0;
 
 	public Vector3 ForwardDirection { get { return forwardVector.normalized; } }
+
+	private event Action orbitalDecayStartedEvent;
+	public event Action OrbitalDecayStarted {
+		add { orbitalDecayStartedEvent += value; }
+		remove { orbitalDecayStartedEvent -= value; }
+	}
 
 	private Vector3 forwardVector;
 	private bool canUpdatePosition;
