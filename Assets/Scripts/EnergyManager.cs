@@ -71,7 +71,7 @@ public class EnergyManager : MonoBehaviour {
 				for(int innerIndex = 0; innerIndex < buildingList.Count; innerIndex++) {
 					Building building = buildingList[innerIndex];
 					if(energyDifference < 0 && building.IsActive) {
-						building.Deactivate();
+						building.DeactivateDueToNoPower();
 						energyDifference += building.GetComponent<BuildingProperties>().EnergyCost;
 					}
 				}
@@ -105,7 +105,7 @@ public class EnergyManager : MonoBehaviour {
 
 					Building building = fuelAndMetal[i];
 					if(energyDifference < 0 && building.IsActive) {
-						building.Deactivate();
+						building.DeactivateDueToNoPower();
 						energyDifference += building.GetComponent<BuildingProperties>().EnergyCost;
 					}
 				}

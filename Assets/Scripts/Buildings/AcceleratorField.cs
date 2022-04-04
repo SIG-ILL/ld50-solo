@@ -1,10 +1,17 @@
 using UnityEngine;
+using System;
 
 public class AcceleratorField : MonoBehaviour {
 	[SerializeField]
 	private float accelerationForce = 2.5f;
 	[SerializeField]
 	private int charges = 3;
+
+	private event Action chargesDepletedEvent;
+	public event Action ChargesDepleted {
+		add { chargesDepletedEvent += value; }
+		remove { chargesDepletedEvent -= value; }
+	}
 
 	private bool isActive = false;
 	private SpriteRenderer spriteRenderer;
@@ -14,7 +21,9 @@ public class AcceleratorField : MonoBehaviour {
 	}
 
 	public void Activate() {
-		spriteRenderer.enabled = true;
+		if(charges > 0) {
+			spriteRenderer.enabled = true;
+		}
 		isActive = true;
 	}
 
@@ -31,5 +40,13 @@ public class AcceleratorField : MonoBehaviour {
 		collision.GetComponent<CometMovement>().Push(accelerationForce * collision.GetComponent<CometMovement>().ForwardDirection);
 
 		charges--;
+
+		if(charges == 0) {
+			spriteRenderer.enabled = false;
+
+			if(chargesDepletedEvent != null) {
+				chargesDepletedEvent();
+			}
+		}
 	}
 }

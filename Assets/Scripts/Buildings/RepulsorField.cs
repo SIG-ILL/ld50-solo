@@ -1,10 +1,17 @@
 using UnityEngine;
+using System;
 
 public class RepulsorField : MonoBehaviour {
 	[SerializeField]
 	private float repulsionForce = 2.5f;
 	[SerializeField]
 	private int charges = 3;
+
+	private event Action chargesDepletedEvent;
+	public event Action ChargesDepleted {
+		add { chargesDepletedEvent += value; }
+		remove { chargesDepletedEvent -= value; }
+	}
 
 	private bool isActive = false;
 	private SpriteRenderer spriteRenderer;
@@ -14,7 +21,10 @@ public class RepulsorField : MonoBehaviour {
 	}
 
 	public void Activate() {
-		spriteRenderer.enabled = true;
+		if(charges > 0) {
+			spriteRenderer.enabled = true;
+		}
+		
 		isActive = true;
 	}
 
@@ -34,5 +44,13 @@ public class RepulsorField : MonoBehaviour {
 		collision.GetComponent<CometMovement>().Push(repulsionForce * reflection);
 
 		charges--;
+
+		if(charges == 0) {
+			spriteRenderer.enabled = false;
+
+			if(chargesDepletedEvent != null) {
+				chargesDepletedEvent();
+			}
+		}
 	}
 }

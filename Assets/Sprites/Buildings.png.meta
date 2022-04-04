@@ -250,7 +250,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -258,6 +258,27 @@ TextureImporter:
       bones: []
       spriteID: c58883d1736b0794f926c058c88760ea
       internalID: -1329484980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NoPowerIndicator
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e3252ff924e5ea43948a789b5d1cc45
+      internalID: 1718088079
       vertices: []
       indices: 
       edges: []
@@ -276,6 +297,7 @@ TextureImporter:
       Repulsor: -31455343
       PowerPlant: 128918612
       Radar: -1329484980
+      NoPowerIndicator: 1718088079
       FuelRefinery: -174752733
       MetalMine: -759405240
       UnableToBuildCross: 2114432739

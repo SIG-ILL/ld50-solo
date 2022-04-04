@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
+using TMPro;
 
 public class ConstructionMenu : MonoBehaviour {
 	[SerializeField]
@@ -53,6 +55,21 @@ public class ConstructionMenu : MonoBehaviour {
 		constructionManager.RocketPartBuilt += OnRocketPartBuilt;
 		constructionManager.RadarBuilt += OnRadarBuilt;
 		constructionManager.RocketCompleted += OnRocketCompleted;
+
+		InitializeResourcesCostDisplay();
+	}
+
+	private void InitializeResourcesCostDisplay() {
+		List<Image> buttonImages = new List<Image>(new Image[]{ spaceportButtonImage, acceleratorButtonImage, repulsortButtonImage, metalMineButtonImage, fuelRefineryButtonImage, powerPlantButtonImage, radarButtonImage });
+		List<GameObject> buildingPrefabs = new List<GameObject>(new GameObject[] { spaceportPrefab, acceleratorPrefab, repulsorPrefab, metalMinePrefab, fuelRefineryPrefab, powerPlantPrefab, radarPrefab });
+
+		for(int i = 0; i < buttonImages.Count; i++) {
+			BuildingProperties buildingProperties = buildingPrefabs[i].GetComponent<BuildingProperties>();
+			buttonImages[i].transform.Find("ResourcesCostText").GetComponent<TextMeshProUGUI>().SetText("M: {0} F: {1} E: {2}", buildingProperties.MetalCost, buildingProperties.FuelCost, buildingProperties.EnergyCost);
+		}
+
+		ResourcesData rocketPartCost = constructionManager.RocketPartCost;
+		rocketPartButtonImage.transform.Find("ResourcesCostText").GetComponent<TextMeshProUGUI>().SetText("M: {0} F: {1} E: {2}", rocketPartCost.Metal, rocketPartCost.Fuel, 0);
 	}
 
 	private void Start() {

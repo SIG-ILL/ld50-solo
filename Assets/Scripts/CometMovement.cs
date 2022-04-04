@@ -77,6 +77,10 @@ public class CometMovement : MonoBehaviour {
 		yield return new WaitForSeconds(orbitalDecayStartDelayInSeconds);
 
 		isDecayingOrbit = true;
+
+		if(orbitalDecayStartedEvent != null) {
+			orbitalDecayStartedEvent();
+		}
 	}
 
 	private IEnumerator LineRendererCoroutine() {
