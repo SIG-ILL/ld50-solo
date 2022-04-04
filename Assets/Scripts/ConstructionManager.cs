@@ -171,16 +171,31 @@ public class ConstructionManager : MonoBehaviour {
 
 		Collider2D[] clickTargetColliders = Physics2D.OverlapPointAll(position);
 
-		if(clickTargetColliders.Length == 0 && !buildingProperties.CanBeBuildInSpace) {	// TODO: Additional checking is required for objects that cannot be build in space. A collider on the constructionGhost may be detected while clicking in space, in which case the 'self' collider should be ignored/filtered out.
-			return false;
+		if(!buildingProperties.CanBeBuildInSpace) {     // Additional checking is required for objects that cannot be build in space. A collider on the constructionGhost may be detected while clicking in space, in which case the 'self' collider should be ignored/filtered out.
+			if(clickTargetColliders.Length == 0) {
+				return false;
+			}
+
+			bool planetOrMoonFound = false;
+			foreach(Collider2D collider in clickTargetColliders) {
+				if(collider.GetComponent<Planet>() != null || collider.GetComponent<CometMovement>() != null) {
+					planetOrMoonFound = true;
+					break;
+				}
+			}
+
+			if(!planetOrMoonFound) {
+				return false;
+			}
 		}
+
 		foreach(Collider2D collider in clickTargetColliders) {
 			if(!buildingProperties.CanBeBuildOnPlanet && collider.GetComponent<Planet>() != null) {
 				return false;
 			}
 			if(!buildingProperties.CanBeBuildOnMoon && collider.GetComponent<CometMovement>() != null) {
 				return false;
-			}			
+			}
 		}
 
 		return true;
