@@ -43,17 +43,26 @@ public class ConstructionMenu : MonoBehaviour {
 	private GameObject radarPrefab;
 
 	private bool hasBuiltRadar;
+	private bool hasBuiltRocket;
 
 	private void Awake() {
 		hasBuiltRadar = false;
+		hasBuiltRocket = false;
 
 		resourcesManager.ResourcesChanged += OnResourcesChanged;
 		constructionManager.RocketPartBuilt += OnRocketPartBuilt;
 		constructionManager.RadarBuilt += OnRadarBuilt;
+		constructionManager.RocketCompleted += OnRocketCompleted;
 	}
 
 	private void Start() {
 		UpdateButtonStates(resourcesManager.CurrentResources);
+	}
+
+	private void OnRocketCompleted() {
+		hasBuiltRocket = true;
+		rocketPartButtonImage.color = Color.grey;
+		rocketPartButtonImage.GetComponent<Button>().interactable = false;
 	}
 
 	private void OnRadarBuilt() {
@@ -87,16 +96,18 @@ public class ConstructionMenu : MonoBehaviour {
 		SetBuildingButtonResourcesAvailableIndication(resources, powerPlantProperties, powerPlantButtonImage);
 		if(!hasBuiltRadar) {
 			SetBuildingButtonResourcesAvailableIndication(resources, radarProperties, radarButtonImage);
-		}		
-
-		ResourcesData rocketPartCost = constructionManager.RocketPartCost;
-		if(resources.Fuel < rocketPartCost.Fuel || resources.Metal < rocketPartCost.Metal) {
-			rocketPartButtonImage.color = Color.red;
-			rocketPartButtonImage.GetComponent<Button>().interactable = false;
 		}
-		else {
-			rocketPartButtonImage.color = Color.white;
-			rocketPartButtonImage.GetComponent<Button>().interactable = true;
+
+		if(!hasBuiltRocket) {
+			ResourcesData rocketPartCost = constructionManager.RocketPartCost;
+			if(resources.Fuel < rocketPartCost.Fuel || resources.Metal < rocketPartCost.Metal) {
+				rocketPartButtonImage.color = Color.red;
+				rocketPartButtonImage.GetComponent<Button>().interactable = false;
+			}
+			else {
+				rocketPartButtonImage.color = Color.white;
+				rocketPartButtonImage.GetComponent<Button>().interactable = true;
+			}
 		}
 	}
 

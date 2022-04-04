@@ -3788,6 +3788,10 @@ PrefabInstance:
       propertyPath: orbitalDecayIncreaseIncrease
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9191433800664236046, guid: b9838bfa492fb0a4b9e020a79b2c0cb1, type: 3}
+      propertyPath: orbitalDecayStartDelayInSeconds
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 9191433800664236048, guid: b9838bfa492fb0a4b9e020a79b2c0cb1, type: 3}
       propertyPath: m_RootOrder
       value: 4
