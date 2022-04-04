@@ -25,6 +25,12 @@ public class CometMovement : MonoBehaviour {
 		remove { orbitalDecayStartedEvent -= value; }
 	}
 
+	private event Action planetCollisionEvent;
+	public event Action PlanetCollision {
+		add { planetCollisionEvent += value; }
+		remove { planetCollisionEvent -= value; }
+	}
+
 	private Vector3 forwardVector;
 	private bool canUpdatePosition;
 	private bool isDecayingOrbit;
@@ -67,6 +73,10 @@ public class CometMovement : MonoBehaviour {
 
 	private void OnCollisionEnter2D(Collision2D collision) {
 		canUpdatePosition = false;
+
+		if(planetCollisionEvent != null) {
+			planetCollisionEvent();
+		}
 	}
 
 	public void Push(Vector3 pushVector) {
