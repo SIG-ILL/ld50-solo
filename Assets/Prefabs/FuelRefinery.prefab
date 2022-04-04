@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   energyCost: 5
   fuelCost: 0
-  metalCost: 5
+  metalCost: 6
   energyGain: 0
   fuelGain: 1
   metalGain: 0

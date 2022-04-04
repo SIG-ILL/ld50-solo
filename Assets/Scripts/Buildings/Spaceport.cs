@@ -14,4 +14,9 @@ public class Spaceport : Building {
 		rocket.transform.parent = rocketSpawner.transform;
 		rocket.transform.localRotation = Quaternion.identity;
 	}
+
+	public void LaunchRocket() {
+		rocket.transform.parent = null;
+		rocket.GetComponent<Rocket>().Launch();
+	}
 }

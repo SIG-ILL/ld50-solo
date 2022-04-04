@@ -77,6 +77,8 @@ public class CometMovement : MonoBehaviour {
 		if(planetCollisionEvent != null) {
 			planetCollisionEvent();
 		}
+
+		GetComponent<ParticleSystem>().Stop();
 	}
 
 	public void Push(Vector3 pushVector) {

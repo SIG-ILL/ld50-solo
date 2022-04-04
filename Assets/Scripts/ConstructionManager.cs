@@ -144,6 +144,16 @@ public class ConstructionManager : MonoBehaviour {
 			if(newBuilding.GetComponent<Radar>() != null && radarBuiltEvent != null) {
 				radarBuiltEvent();
 			}
+
+			Spaceport spaceport = newBuilding.GetComponent<Spaceport>();
+			if(spaceport != null) {
+				if(rocketPartsBuilt >= requiredRocketParts) {
+					spaceport.LaunchRocket();
+				}
+				else {
+					RocketCompleted += spaceport.LaunchRocket;
+				}
+			}
 		}		
 	}
 

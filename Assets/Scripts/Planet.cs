@@ -8,5 +8,8 @@ public class Planet : MonoBehaviour {
 
 	private void OnCollisionEnter2D(Collision2D collision) {
 		Debug.LogFormat("Time for collision to take place: {0}", Time.timeSinceLevelLoad);
+		GetComponent<ParticleSystem>().Play();
+
+		FindObjectOfType<GameEndingManager>().TriggerGameLose();
 	}
 }
